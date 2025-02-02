@@ -9,6 +9,7 @@ app.get('/api/parse', async (req, res) => {
 
   // Verifica se o parâmetro 'url' foi fornecido
   if (!url) {
+    console.error('URL não fornecida!');
     return res.status(400).json({ error: 'URL é um parâmetro obrigatório' });
   }
 
@@ -22,9 +23,11 @@ app.get('/api/parse', async (req, res) => {
     if (result) {
       return res.json({ result });
     } else {
+      console.error('Resultado não encontrado na resposta da API externa');
       return res.status(500).json({ error: 'Resultado não encontrado na resposta da API externa' });
     }
   } catch (error) {
+    console.error('Erro ao acessar a API externa', error);
     return res.status(500).json({ error: 'Erro ao buscar dados da URL fornecida' });
   }
 });
